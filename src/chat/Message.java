@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class Message{
     protected static final SimpleDateFormat dateFormat
         = new SimpleDateFormat ("dd/MM/yyyy 'at' hh:mm:ss");
-    private static Pattern WHITESPACE_PATTERN 
+    private static final Pattern WHITESPACE_PATTERN 
         = Pattern.compile("\\p{javaWhitespace}+");
     private static int idStaticMessage = 0;
     private int idConversation;
@@ -39,7 +39,7 @@ public class Message{
 
     protected void importMessage(Scanner scan){ 
         if (scan.hasNextLine()){
-            idConversation = scan.nextInt(); // not necesary
+            idConversation = scan.nextInt(); // "not necesary"
             idUser         = scan.nextInt();
             idMessage      = scan.nextInt();
             

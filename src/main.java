@@ -14,8 +14,8 @@ public class main{
         Scanner input = new Scanner(System.in);
         
 
-        Config config = new Config();
-        
+        Config config = new Config(1);
+
         System.out.println("Servidor(1), escritor(2), pantalla(3)");
         int number = input.nextInt();
         System.out.println("...");

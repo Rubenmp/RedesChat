@@ -7,7 +7,7 @@ import java.net.*;
 // this information from a server
 public class Printer{
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
-    protected static int port = 8990; 		// Puerto en el que espera el servidor
+    protected static int port = Config.getPrinterPort(); 		// Puerto en el que espera el servidor
 
     public Printer(){}
 

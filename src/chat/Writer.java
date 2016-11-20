@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Writer{
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
-    protected static int port = 8989; 							// Puerto en el que espera el servidor:
+    protected static int port = Config.getWriterPort(); 							// Puerto en el que espera el servidor:
 
     public Writer(){}
 

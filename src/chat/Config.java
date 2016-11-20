@@ -1,6 +1,13 @@
 package chat;
 
+import static chat.Conversation.getConversationFile;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Config {
@@ -10,19 +17,25 @@ public class Config {
     private static String settings = new String();
     private static final String encoding = "UTF-8";
     
-    private static int idStaticConversation = 0;
-    private static int idStaticUser = 0;
-
+    // Files 
+    private static String initialConfig = new String();
+    
+    // Limits
+    private static final int maxGroupSize = 100;
+    
+    private static int idStaticConversation;
+    private static int idStaticUser;
     
     private static final int writerPort  = 8989; 
     private static final int printerPort = 8990;
     
-    public Config(){
-        folder = ".chat/";
+    public Config(int value){
+        folder = ".chatConfig/";
         conversations += folder + "conversations/";
         users += folder + "users/";
         settings += folder +"settings/";
-     
+        
+        // Folders
         File dir = new File(folder);
         dir.mkdir();
         dir = new File(conversations);
@@ -31,10 +44,53 @@ public class Config {
         dir.mkdir();
         dir = new File(settings);
         dir.mkdir();   
+        
+        // Configuration files
+        initialConfig += settings + "init.conf";
+        
+        
+        if (value != 0)
+            initConfig();
+        else{
+            idStaticConversation = 0;
+            idStaticUser         = 0;
+            saveConfig();
+        }
+        
+        loadUsers();
     }
     
-    public void loadUsers(){
+    private static void initConfig(){
+        Scanner scan;
+        try {
+            scan = new Scanner(new File(initialConfig));
+            idStaticConversation = scan.nextInt();
+            idStaticUser         = scan.nextInt();     
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
+    private static void saveConfig(){
+        try {
+            PrintWriter writer = new PrintWriter(initialConfig, Config.getEncoding());
+            writer.println(idStaticConversation + " " + idStaticUser);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void loadUsers(){
+        User user;
+        
+        for (int i=0; i<idStaticUser; ++i){
+            user = new User(i);
+            System.out.println("..");
+            Server.users.add(user);     
+        }
     }
     
     public static String getFolder(){
@@ -101,4 +157,12 @@ public class Config {
         return printerPort;
     }
        
+    
+    public static boolean validUser(int index){
+        return (index >= 0 && index < idStaticUser);    
+    }
+ 
+    public static boolean validConversation(int index){
+        return (index >= 0 && index < idStaticConversation);    
+    }
 }
