@@ -5,27 +5,35 @@ import java.net.*;
 import java.util.*;
 
 public class Writer{
+    private int idConversation, idUser;
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     protected static int port = Config.getWriterPort(); 							// Puerto en el que espera el servidor:
 
-    public Writer(){}
+    public Writer(int p_idConversation, int p_idUser){ 
+        idConversation = p_idConversation;
+        idUser = p_idUser;
+    }
 
     public void execute(){
         String writingBuffer;
+        Message message;
         Scanner input = new Scanner(System.in);
 
         while (input.hasNext()){
             writingBuffer = input.nextLine();
-            if (writingBuffer.toLowerCase() != "exit")
-                write(writingBuffer);
+            if (writingBuffer.toLowerCase() != "exit"){
+                message = new Message(111, idUser, writingBuffer);
+                write(message);
+            }
         }
 
         input.close();
     }
 
-    public void write(String writingBuffer){
+    public void write(Message message){
         Socket socketService;
         PrintWriter outputStream;
+        String writingBuffer = message.toString();
 
         try {
             socketService = new Socket (host, port);
@@ -38,9 +46,9 @@ public class Writer{
             outputStream.close();
 
         }catch (UnknownHostException e){
-            System.err.println("Error: Nombre de host no encontrado.");
+            System.err.println("Error: Host not recognized.");
         }catch (IOException e){
-            System.err.println("Error de entrada/salida al abrir el socket.");
+            System.err.println("Error: I/O socket.");
         }
     }
 

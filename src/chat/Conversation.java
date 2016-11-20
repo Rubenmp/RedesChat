@@ -16,12 +16,12 @@ public class Conversation {
     private int idConversation;
     
     // Members functions
-    private ArrayList<Message> messages   = new ArrayList<>();
+    private ArrayList<Message> messages = new ArrayList<>();
     
 
     public Conversation(){
         idConversation = Config.getIdStaticConversation();
-        Config.newConversation();        
+        Config.newConversation();  
     }
     
     public Message get(int index){

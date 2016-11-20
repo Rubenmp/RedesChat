@@ -11,11 +11,14 @@ import java.util.logging.Logger;
 // this information from a server
 public class User{
     protected static final String extension = ".usr";
-    private Writer writer = new Writer();
-    private Printer printer = new Printer();
     private int idUser;
-    private String name, password;
-    private TreeSet<Integer> conversations = new TreeSet<Integer>();
+    private int tab = -1;
+    private String name;
+    private String password;
+    
+    private ArrayList<Writer>  writers       = new ArrayList<Writer>();
+    private ArrayList<Printer> printers      = new ArrayList<Printer>();
+    private ArrayList<Integer> conversations = new ArrayList<Integer>();
     // Each int in conversations is an idConversation
 
     
@@ -24,13 +27,23 @@ public class User{
         if (Config.validUser(index)){
             try {
                 Scanner scan = new Scanner(new File(Config.getFileUser(index)));
+                Writer writer;
+                Printer printer;
+                int group;
                 
                 idUser   = Integer.parseInt(scan.nextLine());
+                tab      = -1;
                 name     = scan.nextLine();
                 password = scan.nextLine();
-                
-                while (scan.hasNext())
-                    conversations.add(new Integer(scan.nextInt()));
+               
+                while (scan.hasNext()){
+                    group = scan.nextInt();
+                    writer  = new Writer(group, idUser);
+                    printer = new Printer(group, idUser);
+                    conversations.add(new Integer(group));
+                    writers.add(writer);
+                    printers.add(printer);
+                }
                 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,6 +70,10 @@ public class User{
         return idUser;
     }
     
+    public int getTab(){
+        return tab;
+    }
+    
     public String getName(){
         return name;
     }
@@ -69,9 +86,18 @@ public class User{
         return (conversations.contains(index));
     }
     
-    public TreeSet<Integer> getConversations(){
+    public ArrayList<Writer> getWriters(){
+        return writers;
+    }
+    public ArrayList<Printer> getPrinters(){
+        return printers;
+    }
+
+    public ArrayList<Integer> getConversations(){
         return conversations;
     }
+    
+    
     
     public static User getUser(int index){
         User user = new User();
@@ -106,9 +132,9 @@ public class User{
     
     
         
-
-    public void writeMessage(Message message){
-        writer.write(message.toString());       
+    public void writeMessage(String text){
+        Message message = new Message(conversations.get(tab), idUser, text);
+        writers.get(tab).write(message);       
     }
     
 }

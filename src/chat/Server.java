@@ -3,9 +3,8 @@ package chat;
 import java.util.ArrayList;
 
 
-
 public class Server {
-    protected static ArrayList<User> users = new ArrayList();
+    protected static ArrayList<User> users = new ArrayList<User>();
     
     protected static void showPlayer(int index){
         if (Config.validUser(index)){

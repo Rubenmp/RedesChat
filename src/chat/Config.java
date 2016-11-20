@@ -30,9 +30,9 @@ public class Config {
     private static final int printerPort = 8990;
     
     public Config(int value){
-        folder = ".chatConfig/";
+        folder = "/home/rubenmp/Chat/.chatConfig/";
         conversations += folder + "conversations/";
-        users += folder + "users/";
+        users    += folder + "users/";
         settings += folder +"settings/";
         
         // Folders
@@ -88,7 +88,6 @@ public class Config {
         
         for (int i=0; i<idStaticUser; ++i){
             user = new User(i);
-            System.out.println("..");
             Server.users.add(user);     
         }
     }
