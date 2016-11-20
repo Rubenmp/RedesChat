@@ -5,8 +5,8 @@ import java.net.*;
 import java.util.*;
 
 public class Writer{
-    private String host = "localhost";				// Nombre del host donde se ejecuta el servidor:
-    private int port    = 8989; 							// Puerto en el que espera el servidor:
+    private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
+    protected static int port = 8989; 							// Puerto en el que espera el servidor:
 
     public Writer(){}
 
@@ -23,13 +23,12 @@ public class Writer{
         input.close();
     }
 
-    private void write(String writingBuffer){
+    public void write(String writingBuffer){
         Socket socketService;
         PrintWriter outputStream;
 
         try {
             socketService = new Socket (host, port);
-            //System.out.println("hola");
             outputStream = new PrintWriter(socketService.getOutputStream(), true);
 
             outputStream.println(writingBuffer); // Enviamos el array

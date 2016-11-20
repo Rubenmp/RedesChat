@@ -3,6 +3,7 @@ package chat;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,21 +12,16 @@ import java.util.Scanner;
 
 
 public class Conversation {
-    protected static final String encoding  = "UTF-8";
-    protected static final String folder    = ".conversations";
     protected static final String extension = ".chat";
-    private static int idStaticConversation = 0;
     private int idConversation;
     
     // Members functions
-    private ArrayList<Integer> admins     = new ArrayList<>();
-    private ArrayList<Integer> otherUsers = new ArrayList<>();
     private ArrayList<Message> messages   = new ArrayList<>();
     
 
     public Conversation(){
-        idConversation = idStaticConversation;
-        ++idStaticConversation;
+        idConversation = Config.getIdStaticConversation();
+        Config.newConversation();        
     }
     
     public Message get(int index){
@@ -36,8 +32,7 @@ public class Conversation {
     
     public String getConversationFile(){
         String file = new String();
-        file += folder;
-        file += "/";
+        file += Config.getConversations() + "/";
         file += Integer.toString(idConversation);
         file += extension;
         
@@ -46,9 +41,8 @@ public class Conversation {
     
     public static String getConversationFile(int index){
         String file = new String();
-        if (index < idStaticConversation){
-            file += folder;
-            file += "/";
+        if (index < Config.getIdStaticConversation()){
+            file += Config.getConversations() + "/";
             file += Integer.toString(index);
             file += extension;
         }
@@ -68,10 +62,8 @@ public class Conversation {
     public int importConversation(int idConversation) throws FileNotFoundException{
         messages = new ArrayList<>();
         
-        if (idConversation >= 0 && idConversation < idStaticConversation){
+        if (idConversation >= 0 && idConversation < Config.getIdStaticConversation()){
             Scanner scan = new Scanner(new File(getConversationFile(idConversation)));
-                        System.out.println(getConversationFile(idConversation));
-
             Message message;
             
             while (scan.hasNext()){ 
@@ -89,14 +81,14 @@ public class Conversation {
         String file = getConversationFile();
         
         try{
-            PrintWriter writer = new PrintWriter(file, encoding);
+            PrintWriter writer = new PrintWriter(file, Config.getEncoding());
             // Format: <idConversation> <idUser> <idMessage> <date> <Text>            
             for (Message it:messages)
                 it.exportMessage(writer);
                 
             writer.close();
-        } catch (Exception e) {
-            System.err.println("Error: export " + idConversation + " conversation.");
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            System.err.println("Error: export " + idConversation + " conversation failed.");
         } 
     }
     

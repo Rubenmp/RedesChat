@@ -1,11 +1,15 @@
 package chat;
 
+import static chat.Conversation.getConversationFile;
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 
@@ -34,28 +38,53 @@ public class Message{
     }
 
     protected void importMessage(Scanner scan){ 
-
         if (scan.hasNextLine()){
-            idConversation = scan.nextInt();
+            idConversation = scan.nextInt(); // not necesary
             idUser         = scan.nextInt();
             idMessage      = scan.nextInt();
-                                System.out.print(idConversation+ " "+ idUser+" "+idMessage+"\n");
-
+            
             scan.useDelimiter(Pattern.compile("-"));
             String logicalLine = scan.next();
             try {
                date = dateFormat.parse(logicalLine); 
-                          System.out.println(date.toString());
-
             }catch (ParseException e) { 
                System.err.println("Unparseable " + logicalLine + "using " + dateFormat); 
             }         
             
             scan.useDelimiter(WHITESPACE_PATTERN);
             String separator = scan.next();
-            text = scan.nextLine().substring(1);
+            text = scan.nextLine().substring(1); // Removing first " "
             System.out.println(text);
         }
+    }
+    
+    protected static Message toMessage(String string){
+        File fichAux = new File(".aux");
+        Message message = null;
+        PrintWriter writer;
+        Scanner scan;
+        
+        try {
+            writer = new PrintWriter(fichAux, Config.getEncoding());
+            writer.println(string);
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            scan    = new Scanner(fichAux);
+            message = new Message();
+            message.importMessage(scan);
+            fichAux.delete();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return message;
     }
     
     
@@ -65,6 +94,18 @@ public class Message{
         writer.print(Integer.toString(idMessage) + " ");
         writer.print(getDateString() + " - ");
         writer.println(text);        
+    }
+    
+    @Override
+    public String toString(){
+        String message = new String();
+        message += Integer.toString(idConversation) + " ";
+        message += Integer.toString(idUser) + " ";
+        message += Integer.toString(idMessage) + " ";
+        message += getDateString() + " - ";
+        message += text + "\n";
+        
+        return message;    
     }
     
     
