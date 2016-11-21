@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 
 public class Config {
-    private static String folder = new String();
+    private static String folder = "/home/rubenmp/Chat/.chatConfig/";
     private static String conversations = new String();
     private static String users = new String();
     private static String settings = new String();
@@ -30,7 +30,7 @@ public class Config {
     private static final int printerPort = 8990;
     
     public Config(int value){
-        folder = "/home/rubenmp/Chat/.chatConfig/";
+        
         conversations += folder + "conversations/";
         users    += folder + "users/";
         settings += folder +"settings/";
