@@ -16,9 +16,9 @@ public class User{
     private String name;
     private String password;
     
-    private ArrayList<Writer>  writers       = new ArrayList<Writer>();
-    private ArrayList<Printer> printers      = new ArrayList<Printer>();
-    private ArrayList<Integer> conversations = new ArrayList<Integer>();
+    private Writer  writer      ;
+    private Printer printer      ;
+    private Integer conversation;
     // Each int in conversations is an idConversation
 
     
@@ -32,22 +32,26 @@ public class User{
                 int group;
                 
                 idUser   = Integer.parseInt(scan.nextLine());
-                tab      = -1;
+                tab      = 0;
                 name     = scan.nextLine();
                 password = scan.nextLine();
-               
-                while (scan.hasNext()){
+                conversation = scan.nextInt();
+
+                /*while (scan.hasNext()){
                     group = scan.nextInt();
-                    writer  = new Writer(group, idUser);
-                    printer = new Printer(group, idUser);
+                    
+                    writer = new Writer(group, idUser);
+                    // printer = new Printer(group, idUser);
                     conversations.add(new Integer(group));
-                    writers.add(writer);
-                    printers.add(printer);
-                }
+                    //writers.add(writer);
+                    // printer.add(printer);
+                }*/
                 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            printer = new Printer(idUser);
         }
         // Need verification of integrity
     }
@@ -83,18 +87,19 @@ public class User{
     }
     
     public boolean inConversation(int index){
-        return (conversations.contains(index));
+        return true;
+        //return (conversations.contains(index));
     }
     
-    public ArrayList<Writer> getWriters(){
-        return writers;
+    public Writer getWriters(){
+        return writer;
     }
-    public ArrayList<Printer> getPrinters(){
-        return printers;
+    public Printer getPrinter(){
+        return printer;
     }
 
-    public ArrayList<Integer> getConversations(){
-        return conversations;
+    public Integer getConversations(){
+        return conversation;
     }
     
     
@@ -118,8 +123,8 @@ public class User{
             writer.println(idUser);
             writer.println(name);
             writer.println(password);
-            for (Integer i:conversations)
-                writer.print(Integer.toString(i) + " ");
+            //for (Integer i:conversations)
+            //    writer.print(Integer.toString(i) + " ");
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,8 +138,8 @@ public class User{
     
         
     public void writeMessage(String text){
-        Message message = new Message(conversations.get(tab), idUser, text);
-        writers.get(tab).write(message);       
+        Message message = new Message(conversation, idUser, text);
+        writer.write(message);       
     }
     
 }

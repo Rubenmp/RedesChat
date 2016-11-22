@@ -30,20 +30,11 @@ public class Config {
     private static final int printerPort = 8990;
     
     public Config(int value){
-        
         conversations += folder + "conversations/";
         users    += folder + "users/";
         settings += folder +"settings/";
         
-        // Folders
-        File dir = new File(folder);
-        dir.mkdir();
-        dir = new File(conversations);
-        dir.mkdir();
-        dir = new File(users);
-        dir.mkdir();
-        dir = new File(settings);
-        dir.mkdir();   
+        createFolders();
         
         // Configuration files
         initialConfig += settings + "init.conf";
@@ -58,6 +49,17 @@ public class Config {
         }
         
         loadUsers();
+    }
+    
+    private static void createFolders(){
+        File dir = new File(folder);
+        dir.mkdir();
+        dir = new File(conversations);
+        dir.mkdir();
+        dir = new File(users);
+        dir.mkdir();
+        dir = new File(settings);
+        dir.mkdir();       
     }
     
     private static void initConfig(){

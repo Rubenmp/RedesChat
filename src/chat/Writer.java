@@ -4,16 +4,27 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Writer{
+public class Writer {
     private int idConversation, idUser;
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     protected static int port = Config.getWriterPort(); 							// Puerto en el que espera el servidor:
 
+    
+    /*
+    
     public Writer(int p_idConversation, int p_idUser){ 
         idConversation = p_idConversation;
         idUser = p_idUser;
     }
-
+    */
+    
+    
+    public Writer(int p_idUser){ 
+        idConversation = 2222;
+        idUser = p_idUser;
+    }
+    
+    
     public void execute(){
         String writingBuffer;
         Message message;
@@ -22,7 +33,7 @@ public class Writer{
         while (input.hasNext()){
             writingBuffer = input.nextLine();
             if (writingBuffer.toLowerCase() != "exit"){
-                message = new Message(111, idUser, writingBuffer);
+                message = new Message(idConversation, idUser, writingBuffer);
                 write(message);
             }
         }
@@ -41,7 +52,7 @@ public class Writer{
 
             outputStream.println(writingBuffer); // Enviamos el array
             outputStream.flush();
-
+            
             socketService.close();
             outputStream.close();
 

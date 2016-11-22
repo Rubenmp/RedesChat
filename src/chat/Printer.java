@@ -3,18 +3,26 @@ package chat;
 import java.io.*;
 import java.net.*;
 
+
 // This class shows different messages of the conversation, and receive
 // this information from a server
-public class Printer{
+public class Printer {
     private int idConversation, idUser;
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     protected static int port = Config.getPrinterPort(); // Puerto en el que espera el servidor
 
-    public Printer(int p_idConversation, int p_idUser){
+/*
+        public Printer(int p_idConversation, int p_idUser){
         idConversation = p_idConversation;
         idUser = p_idUser;
     }
+    */
 
+    public Printer(int p_idUser){
+        idConversation = 111111;
+        idUser = p_idUser;
+    }
+    
     public void execute(){
         String readingBuffer;
         Socket socketService;
