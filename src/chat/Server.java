@@ -19,7 +19,7 @@ public class Server {
     protected static ArrayList<User> users = new ArrayList<User>();
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     BufferedReader inputStream;
-    
+    PrintWriter    outputStream;
     /*protected static void showUser(int index){
         if (Config.validUser(index)){
             System.out.println(users.get(index).getIdUser() + " ");
@@ -33,21 +33,21 @@ public class Server {
     
     
     public void execute(){
-        // Sockets
         ServerSocket serverWriter, serverPrinter;
         Socket socketWriter, socketPrinter;
         String text;
         
+        
         try{
-            serverWriter  = new ServerSocket(Writer.port); // Abrimos el socket en modo pasivo
-            serverPrinter = new ServerSocket(Printer.port);
-            socketPrinter = serverPrinter.accept();   // Aceptamos una nueva conexión
-
-                    
+            serverWriter  = new ServerSocket(Config.getWriterPort()); // Abrimos el socket en modo pasivo
+            serverPrinter = new ServerSocket(Config.getPrinterPort());
+                        
             while (true){
                 try {
                     socketWriter  = serverWriter.accept();   // Aceptamos una nueva conexión
-
+                    socketPrinter = serverPrinter.accept();   // Aceptamos una nueva conexión
+                    outputStream = new PrintWriter(socketPrinter.getOutputStream(), true);
+                    
                     
                     inputStream  = new BufferedReader (new InputStreamReader(socketWriter.getInputStream()));
                     text = inputStream.readLine();
@@ -58,7 +58,10 @@ public class Server {
 
                     // We only need an inputStream, the output is made with users PrintWriters
                     sendMessage( text );
-                     
+                    outputStream.println(text); // Enviamos el array
+                    outputStream.flush();
+                    
+                    
                 } catch (IOException e) {
                     System.err.println("Error: writer port.");
                 }
@@ -83,31 +86,26 @@ public class Server {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-        }*/       
+        }    
         
         ///////////////////////////////////77//////////
         
         Socket socketService;
-        PrintWriter outputStream;
 
         try {
-            socketService = new Socket (host, Config.getPrinterPort());
-            outputStream = new PrintWriter(socketService.getOutputStream(), true);
-
-    System.out.println("aaaa");System.out.flush();
+            
             outputStream.println(message); // Enviamos el array
             outputStream.flush();
             
     System.out.println("bbbb");System.out.flush();
 
-            socketService.close();
             outputStream.close();
 
         }catch (UnknownHostException e){
             System.err.println("Error: Host not recognized.");
         }catch (IOException e){
             System.err.println("Error: I/O socket.");
-        }
+        }*/
     }
 
 }
