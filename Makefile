@@ -5,7 +5,9 @@ all: Chat
 Chat: $(SRC)/chat/*.java $(SRC)/GUI/*.java
 	javac $(SRC)/chat/*.java
 	javac $(SRC)/GUI/*.java
-	javac $(SRC)/*.java
+	cd src
+	javac main.java
+	cd ..
 
 clean:
 	rm -f $(SRC)/chat/*.class

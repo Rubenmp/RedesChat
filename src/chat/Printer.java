@@ -29,19 +29,16 @@ public class Printer {
         BufferedReader inputStream;
 
         try {
-            socketService = new Socket (host, Config.getPrinterPort()); // Creamos un socket que se conecte a "host" y "port":
-            inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
+           
+            do{              
+                socketService = new Socket (host, Config.getPrinterPort()); // Creamos un socket que se conecte a "host" y "port":
+                inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
 
-    System.out.println("aaaa");System.out.flush();
-            readingBuffer = inputStream.readLine();
-            
-    System.out.println(readingBuffer);System.out.flush();
-    
-    
-            while (readingBuffer != null){
-                printMessage(readingBuffer);
                 readingBuffer = inputStream.readLine();
-            }
+                printMessage(readingBuffer);
+  
+            } while (readingBuffer != null);
+            
             socketService.close();
             inputStream.close();
 

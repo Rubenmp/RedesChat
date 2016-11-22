@@ -3,11 +3,16 @@ package chat;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Writer {
     private int idConversation, idUser;
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     protected static int port = Config.getWriterPort(); 							// Puerto en el que espera el servidor:
+    Socket socketService;
+    PrintWriter outputStream;
+
 
         /*
     public Writer(int p_idConversation, int p_idUser){ 
@@ -28,6 +33,7 @@ public class Writer {
         Message message;
         Scanner input = new Scanner(System.in);
 
+
         while (input.hasNext()){
             writingBuffer = input.nextLine();
             if (writingBuffer.toLowerCase() != "exit"){
@@ -40,25 +46,21 @@ public class Writer {
     }
 
     public void write(Message message){
-        Socket socketService;
-        PrintWriter outputStream;
         String writingBuffer = message.toString();
-
-        try {
-            socketService = new Socket (host, port);
+         try {
+            socketService = new Socket (host, Config.getWriterPort());
             outputStream = new PrintWriter(socketService.getOutputStream(), true);
-
+                
             outputStream.println(writingBuffer); // Enviamos el array
             outputStream.flush();
             
             socketService.close();
             outputStream.close();
-
-        }catch (UnknownHostException e){
-            System.err.println("Error: Host not recognized.");
-        }catch (IOException e){
-            System.err.println("Error: I/O socket.");
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }

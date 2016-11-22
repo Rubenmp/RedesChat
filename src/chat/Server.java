@@ -41,15 +41,16 @@ public class Server {
         try{
             serverWriter  = new ServerSocket(Config.getWriterPort()); // Abrimos el socket en modo pasivo
             serverPrinter = new ServerSocket(Config.getPrinterPort());
-                        
+            
+            
             while (true){
                 try {
                     socketWriter  = serverWriter.accept();   // Aceptamos una nueva conexión
                     socketPrinter = serverPrinter.accept();   // Aceptamos una nueva conexión
-                    outputStream = new PrintWriter(socketPrinter.getOutputStream(), true);
-                    
-                    
+
                     inputStream  = new BufferedReader (new InputStreamReader(socketWriter.getInputStream()));
+                    outputStream = new PrintWriter(socketPrinter.getOutputStream(), true);                   
+                
                     text = inputStream.readLine();
                     System.out.println(text);System.out.flush();
 
@@ -57,7 +58,7 @@ public class Server {
                     inputStream.close();
 
                     // We only need an inputStream, the output is made with users PrintWriters
-                    sendMessage( text );
+                    // sendMessage( text );
                     outputStream.println(text); // Enviamos el array
                     outputStream.flush();
                     
