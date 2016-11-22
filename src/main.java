@@ -15,11 +15,8 @@ public class main{
         
         
         Config config = new Config(1);
-
         System.out.println("Servidor(1), escritor(2), pantalla(3)");
         int number = input.nextInt();
-
-        
         
         
         if (number == 1)

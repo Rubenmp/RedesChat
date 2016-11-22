@@ -32,8 +32,14 @@ public class Printer {
             socketService = new Socket (host, port); // Creamos un socket que se conecte a "host" y "port":
             inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
 
+    System.out.println("aaaa");System.out.flush();
             readingBuffer = inputStream.readLine();
-            while (readingBuffer != null){
+            
+    System.out.println("bbb");
+    System.out.println(readingBuffer);System.out.flush();
+    
+    
+                while (readingBuffer != null){
                 printMessage(readingBuffer);
                 readingBuffer = inputStream.readLine();
             }

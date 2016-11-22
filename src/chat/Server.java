@@ -41,12 +41,17 @@ public class Server {
         try{
             serverWriter  = new ServerSocket(Writer.port); // Abrimos el socket en modo pasivo
             serverPrinter = new ServerSocket(Printer.port);
-            
+            socketPrinter = serverPrinter.accept();   // Aceptamos una nueva conexión
+
+                    
             while (true){
                 try {
-                    socketWriter = serverWriter.accept();   // Aceptamos una nueva conexión
+                    socketWriter  = serverWriter.accept();   // Aceptamos una nueva conexión
+
+                    
                     inputStream  = new BufferedReader (new InputStreamReader(socketWriter.getInputStream()));
                     text = inputStream.readLine();
+                    System.out.println(text);System.out.flush();
 
                     socketWriter.close();
                     inputStream.close();
@@ -74,7 +79,6 @@ public class Server {
         try {
             PrintWriter printer = new PrintWriter(file, Config.getEncoding());
             message.exportMessage(printer);
-            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
@@ -87,12 +91,15 @@ public class Server {
         PrintWriter outputStream;
 
         try {
-            socketService = new Socket (host, Printer.port);
+            socketService = new Socket (host, Config.getPrinterPort());
             outputStream = new PrintWriter(socketService.getOutputStream(), true);
 
+    System.out.println("aaaa");System.out.flush();
             outputStream.println(message); // Enviamos el array
             outputStream.flush();
             
+    System.out.println("bbbb");System.out.flush();
+
             socketService.close();
             outputStream.close();
 

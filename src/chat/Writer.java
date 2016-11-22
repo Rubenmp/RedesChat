@@ -9,9 +9,7 @@ public class Writer {
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     protected static int port = Config.getWriterPort(); 							// Puerto en el que espera el servidor:
 
-    
-    /*
-    
+        /*
     public Writer(int p_idConversation, int p_idUser){ 
         idConversation = p_idConversation;
         idUser = p_idUser;
@@ -19,7 +17,7 @@ public class Writer {
     */
     
     
-    public Writer(int p_idUser){ 
+    public Writer(int p_idUser){
         idConversation = 2222;
         idUser = p_idUser;
     }
