@@ -13,12 +13,13 @@ import javax.swing.*;
  * @author rubenmp
  */
 public class ConversationView extends javax.swing.JPanel {
-
+    int id;
     /**
      * Creates new form ConversationView
      */
-    public ConversationView() {
+    public ConversationView(int p_id) {
         initComponents();
+        id = p_id;
     }
 
     
@@ -56,17 +57,23 @@ public class ConversationView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setBorder(new javax.swing.border.MatteBorder(null));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGap(0, 348, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
+            .addGap(0, 348, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    void refresh() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

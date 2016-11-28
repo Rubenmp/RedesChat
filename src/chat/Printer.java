@@ -9,7 +9,7 @@ import java.net.*;
 public class Printer {
     private int idConversation, idUser;
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
-    protected static int port = Config.getPrinterPort(); // Puerto en el que espera el servidor
+    protected static int port = Config.getWriterPort(); // Puerto en el que espera el servidor
 
 /*
         public Printer(int p_idConversation, int p_idUser){
@@ -29,18 +29,17 @@ public class Printer {
         BufferedReader inputStream;
 
         try {
-           
             do{              
                 socketService = new Socket (host, Config.getPrinterPort()); // Creamos un socket que se conecte a "host" y "port":
                 inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
 
                 readingBuffer = inputStream.readLine();
+               
                 printMessage(readingBuffer);
-  
+                socketService.close();
+                inputStream.close();
+                
             } while (readingBuffer != null);
-            
-            socketService.close();
-            inputStream.close();
 
         }catch (UnknownHostException e){
                 System.err.println("Error: Host name not found.");

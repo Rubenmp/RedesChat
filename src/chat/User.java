@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 public class User{
     protected static final String extension = ".usr";
     private int idUser;
-    private int tab = -1;
+    private int tab = -1;   
     private String name;
     private String password;
     
-    private Writer  writer      ;
-    private Printer printer      ;
+    private Writer  writer;
+    private Printer printer;
     private Integer conversation;
     // Each int in conversations is an idConversation
 
@@ -66,9 +66,17 @@ public class User{
     public User(String p_name, String p_password){
         name = p_name;
         password = p_password;
-        idUser = Config.getIdStaticUser();
-        Config.newUser();
+        idUser = Config.newUser();
     }
+    
+    
+    public void execute(){
+    
+     
+    
+    }
+    
+    
     
     public int getIdUser(){
         return idUser;
@@ -98,7 +106,7 @@ public class User{
         return printer;
     }
 
-    public Integer getConversations(){
+    public Integer getConversation(){
         return conversation;
     }
     

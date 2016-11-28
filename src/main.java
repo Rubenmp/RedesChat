@@ -5,6 +5,8 @@ import java.net.*;
 import java.util.*;
 import java.text.*;
 import chat.*;
+import GUI.*;
+
 
 public class main{
     public static void main(String[] args) throws FileNotFoundException{   
@@ -14,17 +16,24 @@ public class main{
         Scanner input = new Scanner(System.in);
         
         
-        Config config = new Config(1);
-        System.out.println("Servidor(1), escritor(2), pantalla(3)");
+        //Config config = new Config(1);
+        System.out.println("Escritor(2), pantalla(3)");
         int number = input.nextInt();
         
-        
-        if (number == 1)
-            servidor.execute();
-        else if (number == 2)
+        if (number == 2)
             escritor.execute();
         else if (number == 3)
             pantalla.execute();
+        
+        
+        Config config = new Config(1);
+        chat.User user1 = new chat.User(1);
+        GUI.UserView userView = new GUI.UserView(user1);
+        userView.setVisible(true);
+               
+        
+        //PlayerNamesCapture namesCapture = new PlayerNamesCapture(napakalakiView, true);
+        //ArrayList<String> names = namesCapture.getNames();
 
     }
 }

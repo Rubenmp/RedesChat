@@ -20,61 +20,44 @@ public class Server {
     private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     BufferedReader inputStream;
     PrintWriter    outputStream;
-    /*protected static void showUser(int index){
-        if (Config.validUser(index)){
-            System.out.println(users.get(index).getIdUser() + " ");
-            System.out.println(users.get(index).getName() + " ");
-            for (int i=0; i<users.get(index).getPasswordLength(); ++i)
-                System.out.println("*");
-            for (Integer it:users.get(index).getConversations())
-                System.out.println(" " + Integer.toString(it));
-        }
-    }*/
-    
-    
+
+    ServerSocket serverSocket, serverSocket2;
+    Socket socket, socket2;
+    ServerProcessor processor;
+    String text;
+
+    // Pass users to processor
     public void execute(){
-        ServerSocket serverWriter, serverPrinter;
-        Socket socketWriter, socketPrinter;
-        String text;
-        
-        
-        try{
-            serverWriter  = new ServerSocket(Config.getWriterPort()); // Abrimos el socket en modo pasivo
-            serverPrinter = new ServerSocket(Config.getPrinterPort());
-            
-            
-            while (true){
-                try {
-                    socketWriter  = serverWriter.accept();   // Aceptamos una nueva conexión
-                    socketPrinter = serverPrinter.accept();   // Aceptamos una nueva conexión
+        try {
+            serverSocket  = new ServerSocket(Config.getWriterPort()); 			// Abrimos el socket en modo pasivo
+            serverSocket2 = new ServerSocket(Config.getPrinterPort()); 			// Abrimos el socket en modo pasivo
 
-                    inputStream  = new BufferedReader (new InputStreamReader(socketWriter.getInputStream()));
-                    outputStream = new PrintWriter(socketPrinter.getOutputStream(), true);                   
+            do {
+                socket  = serverSocket.accept();   // Aceptamos una nueva conexión
+                socket2 = serverSocket2.accept();   // Aceptamos una nueva conexión
+
+                inputStream    = new BufferedReader (new InputStreamReader(socket.getInputStream()));
+                outputStream   = new PrintWriter(socket2.getOutputStream(), true);
+
+                text = inputStream.readLine(); 
+                outputStream.println(text);
+
+                // Obtiene los flujos de escritura/lectura
+                inputStream.close();
+                outputStream.close();
                 
-                    text = inputStream.readLine();
-                    System.out.println(text);System.out.flush();
-
-                    socketWriter.close();
-                    inputStream.close();
-
-                    // We only need an inputStream, the output is made with users PrintWriters
-                    // sendMessage( text );
-                    outputStream.println(text); // Enviamos el array
-                    outputStream.flush();
-                    
-                    
-                } catch (IOException e) {
-                    System.err.println("Error: writer port.");
-                }
-            }            
+                //processor = new ServerProcessor(socket, socket2); // Este esquema permite que se puedan usar hebras
+                //processor.start();
+                
+            } while (true);
             
         } catch (IOException e) {
-            System.err.println("Error: create server ports.");
+                System.err.println("Error al escuchar en el puerto "+port);
         }
-              
     }
-    
-    
+
+
+
     // Seng message to all chat's interfaces of users
     public void sendMessage(String message){
         //int nConversation = message.getIdConversation();
@@ -87,19 +70,16 @@ public class Server {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        
+        }
+
         ///////////////////////////////////77//////////
-        
         Socket socketService;
 
         try {
-            
+
             outputStream.println(message); // Enviamos el array
             outputStream.flush();
-            
     System.out.println("bbbb");System.out.flush();
-
             outputStream.close();
 
         }catch (UnknownHostException e){

@@ -33,7 +33,6 @@ public class Writer {
         Message message;
         Scanner input = new Scanner(System.in);
 
-
         while (input.hasNext()){
             writingBuffer = input.nextLine();
             if (writingBuffer.toLowerCase() != "exit"){
