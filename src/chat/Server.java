@@ -45,10 +45,10 @@ public class Server {
                 outputStream.println(text);
                 outputStream.close();
 
-                // socketP = serverSocketP.accept();   // Aceptamos una nueva conexión
-                // outputStream   = new PrintWriter(socketP.getOutputStream(), true);
-                // outputStream.println(text);
-                // outputStream.close();
+                socketP = serverSocketP.accept();   // Aceptamos una nueva conexión
+                outputStream   = new PrintWriter(socketP.getOutputStream(), true);
+                outputStream.println(text);
+                outputStream.close();
 
             } while (true);
 
