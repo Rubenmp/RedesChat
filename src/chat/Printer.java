@@ -8,7 +8,9 @@ import java.net.*;
 // this information from a server
 public class Printer {
     private int idConversation, idUser;
-    private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
+    //private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
+    private String host       = "192.168.43.244";	// Nombre del host donde se ejecuta el servidor:
+
     protected static int port = Config.getWriterPort(); // Puerto en el que espera el servidor
 
 /*
@@ -22,23 +24,22 @@ public class Printer {
         idConversation = 111111;
         idUser = p_idUser;
     }
-    
+
     public void execute(){
         String readingBuffer;
         Socket socketService;
         BufferedReader inputStream;
 
         try {
-            do{              
+            do{
                 socketService = new Socket (host, Config.getPrinterPort()); // Creamos un socket que se conecte a "host" y "port":
                 inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
-
                 readingBuffer = inputStream.readLine();
-               
+                inputStream.close();
+
                 printMessage(readingBuffer);
                 socketService.close();
-                inputStream.close();
-                
+
             } while (readingBuffer != null);
 
         }catch (UnknownHostException e){
@@ -47,10 +48,10 @@ public class Printer {
                 System.err.println("Error: I/O with socket.");
         }
     }
-    
+
     public void printMessage(String readingBuffer){
         System.out.println("Mensaje \t" + readingBuffer);
-        System.out.flush();    
+        System.out.flush();
     }
 
 }
