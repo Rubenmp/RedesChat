@@ -10,13 +10,16 @@ import GUI.*;
 
 public class main{
     public static void main(String[] args) throws FileNotFoundException{
-        Config.setHost("192.168.1.6");
 
         chat.Writer writer = new chat.Writer(0);
         chat.Printer printer = new chat.Printer(0);
         Scanner input = new Scanner(System.in);
 
         //Config config = new Config(1);
+        System.out.print("Introduce server's IP: ");
+        String hostIP = input.next();
+        Config.setHost(hostIP);
+
         System.out.println("Escritor(2), pantalla(3)");
         int number = input.nextInt();
 

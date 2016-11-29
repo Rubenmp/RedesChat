@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 
 public class Message{
     protected static final SimpleDateFormat dateFormat
-        = new SimpleDateFormat ("dd/MM/yyyy 'at' hh:mm:ss");
-    private static final Pattern WHITESPACE_PATTERN 
+        = new SimpleDateFormat ("dd/MM '@' hh:mm");
+    private static final Pattern WHITESPACE_PATTERN
         = Pattern.compile("\\p{javaWhitespace}+");
     private static int idStaticMessage = 0;
     private int idConversation;
@@ -27,7 +27,7 @@ public class Message{
 
 
     protected Message(){}
-    
+
     public Message(int p_idConversation, int p_idUser, String p_text) {
     	idConversation  = p_idConversation;
         idUser          = p_idUser;
@@ -37,33 +37,33 @@ public class Message{
         text            = p_text;
     }
 
-    protected void importMessage(Scanner scan){ 
+    protected void importMessage(Scanner scan){
         if (scan.hasNextLine()){
             idConversation = scan.nextInt(); // "not necesary"
             idUser         = scan.nextInt();
             idMessage      = scan.nextInt();
-            
+
             scan.useDelimiter(Pattern.compile("-"));
             String logicalLine = scan.next();
             try {
-               date = dateFormat.parse(logicalLine); 
-            }catch (ParseException e) { 
-               System.err.println("Unparseable " + logicalLine + "using " + dateFormat); 
-            }         
-            
+               date = dateFormat.parse(logicalLine);
+            }catch (ParseException e) {
+               System.err.println("Unparseable " + logicalLine + "using " + dateFormat);
+            }
+
             scan.useDelimiter(WHITESPACE_PATTERN);
             String separator = scan.next();
             text = scan.nextLine().substring(1); // Removing first " "
-            System.out.println(text);
+            //System.out.println(text);
         }
     }
-    
+
     protected static Message toMessage(String string){
         File fichAux = new File(".aux");
         Message message = null;
         PrintWriter writer;
         Scanner scan;
-        
+
         try {
             writer = new PrintWriter(fichAux, Config.getEncoding());
             writer.println(string);
@@ -73,29 +73,29 @@ public class Message{
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             scan    = new Scanner(fichAux);
             message = new Message();
             message.importMessage(scan);
             fichAux.delete();
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         return message;
     }
-    
-    
+
+
     protected void exportMessage(PrintWriter writer){
         writer.print(Integer.toString(idConversation) + " ");
         writer.print(Integer.toString(idUser) + " ");
         writer.print(Integer.toString(idMessage) + " ");
         writer.print(getDateString() + " - ");
-        writer.println(text);        
+        writer.println(text);
     }
-    
+
     @Override
     public String toString(){
         String message = new String();
@@ -104,11 +104,11 @@ public class Message{
         message += Integer.toString(idMessage) + " ";
         message += getDateString() + " - ";
         message += text + "\n";
-        
-        return message;    
+
+        return message;
     }
-    
-    
+
+
     public int getIdConversation(){
         return idConversation;
     }
@@ -120,15 +120,19 @@ public class Message{
     public int getIdMessage(){
       return idMessage;
     }
-    
+
     public Date getDate(){
         return date;
     }
-    
+
     public String getDateString(){
         return dateFormat.format(date);
     }
-    
+
+    public String getText(){
+      return text;
+    }
+
     public String getFormat(){
         return "<idConversation> <idUser> <idMessage> <date:dateFormat> - <Text>";
     }

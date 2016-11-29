@@ -48,7 +48,8 @@ public class Printer {
     }
 
     public void printMessage(String readingBuffer){
-        System.out.println("Mensaje \t" + readingBuffer);
+        Message m = Message.toMessage(readingBuffer);
+        System.out.println(m.getDateString() + " from " + m.getText());
         System.out.flush();
     }
 

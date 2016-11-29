@@ -36,22 +36,22 @@ public class Server {
 
                 socketW  = serverSocketW.accept();   // Aceptamos una nueva conexión
                 inputStream    = new BufferedReader (new InputStreamReader(socketW.getInputStream()));
-                text = inputStream.readLine(); 
+                text = inputStream.readLine();
                 inputStream.close();
-                
-                
-                socketP = serverSocketP.accept();   // Aceptamos una nueva conexión                            
-                outputStream   = new PrintWriter(socketP.getOutputStream(), true);                
-                outputStream.println(text);
-                outputStream.close();
-                
-                socketP = serverSocketP.accept();   // Aceptamos una nueva conexión                            
-                outputStream   = new PrintWriter(socketP.getOutputStream(), true);                
+
+
+                socketP = serverSocketP.accept();   // Aceptamos una nueva conexión
+                outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
 
+                // socketP = serverSocketP.accept();   // Aceptamos una nueva conexión
+                // outputStream   = new PrintWriter(socketP.getOutputStream(), true);
+                // outputStream.println(text);
+                // outputStream.close();
+
             } while (true);
-            
+
         } catch (IOException e) {
                 System.err.println("Error al escuchar en el puerto "+port);
         }

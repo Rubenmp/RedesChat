@@ -33,8 +33,13 @@ public class Writer {
         Message message;
         Scanner input = new Scanner(System.in);
 
+        System.out.print("Introduce your username: ");
+        String username = input.next();
+
         while (input.hasNext()){
             writingBuffer = input.nextLine();
+            writingBuffer = username + ":\t" + writingBuffer;
+
             if (writingBuffer.toLowerCase() != "exit"){
                 message = new Message(idConversation, idUser, writingBuffer);
                 write(message);
