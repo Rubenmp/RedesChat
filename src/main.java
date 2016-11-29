@@ -23,13 +23,13 @@ public class main{
         else
           Config.setHost(hostIP);
 
-        System.out.println("Escritor(2), pantalla(3)");
+        System.out.println("Open a writer window: 1. Open a printer window: 2.");
         int number = input.nextInt();
 
 
-        if (number == 2)
+        if (number == 1)
             writer.execute();
-        else if (number == 3)
+        else if (number == 2)
             printer.execute();
 
         //PlayerNamesCapture namesCapture = new PlayerNamesCapture(napakalakiView, true);
