@@ -18,7 +18,10 @@ public class main{
         //Config config = new Config(1);
         System.out.print("Introduce server's IP: ");
         String hostIP = input.next();
-        Config.setHost(hostIP);
+        if (hostIP.isEmpty())
+          Config.setHost("localhost");
+        else
+          Config.setHost(hostIP);
 
         System.out.println("Escritor(2), pantalla(3)");
         int number = input.nextInt();
