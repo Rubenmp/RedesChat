@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Writer {
     private int idConversation, idUser;
-    private String host       = "192.168.43.244";	// Nombre del host donde se ejecuta el servidor:
+    private String host       = Config.getHost();	// Nombre del host donde se ejecuta el servidor:
     protected static int port = Config.getWriterPort(); 							// Puerto en el que espera el servidor:
     Socket socketService;
     PrintWriter outputStream;

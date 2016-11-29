@@ -9,9 +9,9 @@ import java.net.*;
 public class Printer {
     private int idConversation, idUser;
     //private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
-    private String host       = "192.168.43.244";	// Nombre del host donde se ejecuta el servidor:
+    private String host       = Config.getHost();	// Nombre del host donde se ejecuta el servidor:
 
-    protected static int port = Config.getWriterPort(); // Puerto en el que espera el servidor
+    protected static int port = Config.getPrinterPort(); // Puerto en el que espera el servidor
 
 /*
         public Printer(int p_idConversation, int p_idUser){
@@ -32,12 +32,11 @@ public class Printer {
 
         try {
             do{
-                socketService = new Socket (host, Config.getPrinterPort()); // Creamos un socket que se conecte a "host" y "port":
+                socketService = new Socket (host, port); // Creamos un socket que se conecte a "host" y "port":
                 inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
                 readingBuffer = inputStream.readLine();
-                inputStream.close();
-
                 printMessage(readingBuffer);
+                inputStream.close();
                 socketService.close();
 
             } while (readingBuffer != null);

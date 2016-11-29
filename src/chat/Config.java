@@ -28,6 +28,7 @@ public class Config {
 
     private static final int writerPort  = 8989;
     private static final int printerPort = 8990;
+    private static String host;
 
     public Config(int value){
         conversations += folder + "conversations/";
@@ -160,6 +161,13 @@ public class Config {
         return printerPort;
     }
 
+    public static String getHost(){
+        return host;
+    }
+
+    public static void setHost(String p_host){
+        host = p_host;
+    }
 
     public static boolean validUser(int index){
         return (index >= 0 && index < idStaticUser);
