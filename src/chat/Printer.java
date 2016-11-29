@@ -8,9 +8,13 @@ import java.net.*;
 // this information from a server
 public class Printer {
     private int idConversation, idUser;
+<<<<<<< Updated upstream
     //private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
     private String host       = Config.getHost();	// Nombre del host donde se ejecuta el servidor:
 
+=======
+    private String host       = "localhost";	// Nombre del host donde se ejecuta el servidor:
+>>>>>>> Stashed changes
     protected static int port = Config.getPrinterPort(); // Puerto en el que espera el servidor
 
 /*
