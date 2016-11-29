@@ -10,9 +10,6 @@ import GUI.*;
 
 public class main{
     public static void main(String[] args) throws FileNotFoundException{
-
-        chat.Writer writer = new chat.Writer(0);
-        chat.Printer printer = new chat.Printer(0);
         Scanner input = new Scanner(System.in);
 
         //Config config = new Config(1);
@@ -26,14 +23,13 @@ public class main{
         System.out.println("Open a writer window: 1. Open a printer window: 2.");
         int number = input.nextInt();
 
-
+        chat.Writer writer = new chat.Writer(0);
+        chat.Printer printer = new chat.Printer(0);
+        
         if (number == 1)
             writer.execute();
         else if (number == 2)
             printer.execute();
-
-        //PlayerNamesCapture namesCapture = new PlayerNamesCapture(napakalakiView, true);
-        //ArrayList<String> names = namesCapture.getNames();
 
     }
 }
