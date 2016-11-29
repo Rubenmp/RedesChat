@@ -5,49 +5,35 @@
  */
 package GUI;
 
-import java.awt.*;
-import javax.swing.*;
-
+import chat.*;
 /**
  *
  * @author rubenmp
  */
 public class ConversationView extends javax.swing.JPanel {
-    int id;
-    /**
-     * Creates new form ConversationView
-     */
-    public ConversationView(int p_id) {
-        initComponents();
-        id = p_id;
-    }
-
+    User user;
+    int idConversation;
     
-      static Color colors[] = { Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE,
-      Color.MAGENTA };
-
-    static void add(JTabbedPane tabbedPane, String label) {
-      int count = tabbedPane.getTabCount();
-      JButton button = new JButton(label);
-      button.setBackground(colors[count]);
-      tabbedPane.addTab(label, new ImageIcon("yourFile.gif"), button, label);
+    /**
+     * Creates new form NewJPanel
+     */
+    public ConversationView() {
+        initComponents();
+        messages.setEditable(false);
     }
-
-    public static void main(String args[]) {
-      JFrame frame = new JFrame("Tabbed Pane Sample");
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-      JTabbedPane tabbedPane = new JTabbedPane();
-      tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-      String titles[] = { "A", "B", "C", "D", "E", "F" };
-      for (int i = 0, n = titles.length; i < n; i++) {
-        add(tabbedPane, titles[i]);
-      }
-
-      frame.add(tabbedPane, BorderLayout.CENTER);
-      frame.setSize(400, 150);
-      frame.setVisible(true);
+    
+    public void set(User p_user, int p_idConversation){
+        user = p_user;
+        idConversation = p_idConversation;    
     }
+    
+    public void add(String text){
+        messages.append(text);
+        messages.revalidate();
+        messages.repaint();
+    }
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,25 +43,75 @@ public class ConversationView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBorder(new javax.swing.border.MatteBorder(null));
+        jScrollPane1 = new javax.swing.JScrollPane();
+        messages = new javax.swing.JTextArea();
+        text = new javax.swing.JTextField();
+        send = new java.awt.Button();
+
+        messages.setColumns(20);
+        messages.setRows(5);
+        jScrollPane1.setViewportView(messages);
+
+        text.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textActionPerformed(evt);
+            }
+        });
+
+        send.setActionCommand("send");
+        send.setLabel("Send");
+        send.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(send, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(text, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(send, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        send.getAccessibleContext().setAccessibleName("send");
     }// </editor-fold>//GEN-END:initComponents
 
-    void refresh() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
+        String plainText = text.getText();
+        Message message = new Message(idConversation, user.getIdUser(), 
+                                        user.getName(), plainText);
+        user.getWriters().write(message);
+        //text.setText("");
+    }//GEN-LAST:event_sendActionPerformed
+
+    private void textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea messages;
+    private java.awt.Button send;
+    private javax.swing.JTextField text;
     // End of variables declaration//GEN-END:variables
 }
