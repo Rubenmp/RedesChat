@@ -1,9 +1,3 @@
-% Autor: Pablo Baeyens (@pbaeyens)
-% Email: pbaeyens31+github@gmail.com
-% Licencia: CC BY-SA 3.0
-
-%% Paquetes y configuración %
-
 % Beamer
 \PassOptionsToPackage{unicode}{hyperref}  % Evita errores con caracteres no ASCII
 \PassOptionsToPackage{naturalnames}{hyperref} % tex.stackexchange.com/questions/10555
@@ -31,24 +25,25 @@
 \definecolor{links}{HTML}{2C2C95}    % Enlaces
 \definecolor{bars}{HTML}{045FB4}     % Barras (gráfico)
 
+
 % Código
 \usepackage{listings}
 \lstset{
-language=[LaTeX]TeX,
-basicstyle=\footnotesize,
-morekeywords={href,uselanguage,languagepath,column},
-otherkeywords={pause,usetheme,usecolortheme,useinnertheme,titlepage,tableofcontents,subtitle},
-breaklines=true,
-backgroundcolor=\color{backg},
-keywordstyle=\color{keywords},
-commentstyle=\color{comments},
-stringstyle=\color{strings},
-tabsize=2,
-% Acentos, ñ, ¿, ¡ (tex.stackexchange.com/questions/24528)
-extendedchars=true,
-literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
-         {ú}{{\'u}}1 {ñ}{{\~n}}1 {¡}{{\textexclamdown}}1
-         {¿}{{?`}}1
+	language=[LaTeX]TeX,
+	basicstyle=\footnotesize,
+	morekeywords={href,uselanguage,languagepath,column},
+	otherkeywords={pause,usetheme,usecolortheme,useinnertheme,titlepage,tableofcontents,subtitle},
+	breaklines=true,
+	backgroundcolor=\color{backg},
+	keywordstyle=\color{keywords},
+	commentstyle=\color{comments},
+	stringstyle=\color{strings},
+	tabsize=2,
+	% Acentos, ñ, ¿, ¡ (tex.stackexchange.com/questions/24528)
+	extendedchars=true,
+	literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
+	{ú}{{\'u}}1 {ñ}{{\~n}}1 {¡}{{\textexclamdown}}1
+	{¿}{{?`}}1
 }
 
 % Gráficos
@@ -62,9 +57,9 @@ literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
 \usepackage{tikz}
 \usetikzlibrary{mindmap,trees,shadows}
 \tikzset{ % Genera overlays
-    invisible/.style={opacity=0},
-    visible on/.style={alt={#1{}{invisible}}},
-    alt/.code args={<#1>#2#3}{\alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}},
+	invisible/.style={opacity=0},
+	visible on/.style={alt={#1{}{invisible}}},
+	alt/.code args={<#1>#2#3}{\alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}},
 }
 
 %% Comandos %%
@@ -76,40 +71,77 @@ literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
 \newcommand{\enlace}[3]{\href{#1}{\textbf{#2}} - {\small #3}}  % Estílo único para refs
 \newcommand{\comando}[1]{{\color{black}\textbackslash}{\color{keywords}#1}}
 
-%% Temas %%
-% Tema y tema de color
-  \usetheme{Dresden}
-  \usecolortheme{dolphin}
-  \useinnertheme{circles}
-  \setbeamercovered{transparent}
-% Colores bloques
-  \setbeamercolor{block title}{bg=title,fg=links}
-  \setbeamercolor{block body}{bg=backg,fg=black}
-  \setbeamercolor{block title alerted}{fg=red!70!black,bg=title!92!red}
-  \setbeamercolor{block body alerted}{fg=black,bg=backg}
-  \setbeamercolor{block title example}{fg=green!70!black,bg=title!92!green}
-  \setbeamercolor{block body example}{fg=black,bg=backg}
-% Enlaces (tex.stackexchange.com/questions/13423)
-\hypersetup{colorlinks,linkcolor=,urlcolor=links}
-% Quita enlaces de navegación (stackoverflow.com/questions/3017030)
-\setbeamertemplate{navigation symbols}{}
-% Quita barra inferior (stackoverflow.com/questions/1435837)
-\setbeamertemplate{footline}{}
-% Evita warnings boxes
-\hfuzz=20pt
-\vfuzz=20pt
-% Evita wranings itemize
-\renewcommand\textbullet{\ensuremath{\bullet}}
+
+
+\mode<presentation> {
+	%\usetheme{default}
+	%\usetheme{AnnArbor}
+	%\usetheme{Antibes}
+	%\usetheme{Bergen}
+	%\usetheme{Berkeley}
+	%\usetheme{Berlin}
+	%\usetheme{Boadilla}
+	%\usetheme{CambridgeUS}
+	%\usetheme{Copenhagen}
+	%\usetheme{Darmstadt}
+	%\usetheme{Dresden}
+	%\usetheme{Frankfurt}
+	%\usetheme{Goettingen}
+	%\usetheme{Hannover}
+	%\usetheme{Ilmenau}
+	%\usetheme{JuanLesPins}
+	%\usetheme{Luebeck}
+	\usetheme{Madrid}
+	%\usetheme{Malmoe}
+	%\usetheme{Marburg}
+	%\usetheme{Montpellier}
+	%\usetheme{PaloAlto}
+	%\usetheme{Pittsburgh}
+	%\usetheme{Rochester}
+	%\usetheme{Singapore}
+	%\usetheme{Szeged}
+	%\usetheme{Warsaw}
+	
+	% As well as themes, the Beamer class has a number of color themes
+	% for any slide theme. Uncomment each of these in turn to see how it
+	% changes the colors of your current slide theme.
+	
+	%\usecolortheme{albatross}
+	%\usecolortheme{beaver}
+	%\usecolortheme{beetle}
+	%\usecolortheme{crane}
+	%\usecolortheme{dolphin}
+	%\usecolortheme{dove}
+	%\usecolortheme{fly}
+	%\usecolortheme{lily}
+	%\usecolortheme{orchid}
+	%\usecolortheme{rose}
+	%\usecolortheme{seagull}
+	%\usecolortheme{seahorse}
+	%\usecolortheme{whale}
+	%\usecolortheme{wolverine}
+	
+	%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+	%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+	
+	%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+
 
 %% Título y otros %%
 \title{Prácticas Fundamentos de Redes\\ Chat}
 \author{Rubén Morales Pérez \\
-		Francisco Javier Morales Pérez}
-\date{ }
+	Francisco Javier Morales Pérez}
+\date{\today}
 
 
 %% Presentación %%
 \begin{document}
+
 
 \begin{frame}
 \titlepage
@@ -119,6 +151,13 @@ literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
   \hypertarget{index}{}
   \tableofcontents
 \end{frame}
+
+
+\input{./Temas/beamerIntroduccion.tex}
+\input{./Temas/beamerServidor.tex}
+\input{./Temas/beamerUsuario.tex}
+\input{./Temas/beamerConfiguracion.tex}
+
 
 
 
