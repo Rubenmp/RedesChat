@@ -40,9 +40,12 @@ public class Server {
                 inputStream    = new BufferedReader (new InputStreamReader(socketW.getInputStream()));
                 text = inputStream.readLine();
                 inputStream.close();
+<<<<<<< HEAD
 
                 System.out.print("Server receives: ");
                 System.out.println(text); System.out.flush();
+=======
+>>>>>>> parent of 1590f27... Merge remote-tracking branch 'origin/master'
 
                 socketP = serverSocketP2.accept();   // Aceptamos una nueva conexión
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
@@ -53,6 +56,11 @@ public class Server {
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of 1590f27... Merge remote-tracking branch 'origin/master'
             } while (true);
 
         } catch (IOException e) {
