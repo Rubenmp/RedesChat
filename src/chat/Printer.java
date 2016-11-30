@@ -41,6 +41,11 @@ public class Printer {
                 socketP.close();
                 printMessage(readingBuffer);
 
+                try {
+                  Thread.sleep(2500);                 //1000 milliseconds is one second.
+                } catch(InterruptedException ex) {
+                  Thread.currentThread().interrupt();
+                }
             } while (readingBuffer != null);
 
         }catch (UnknownHostException e){
