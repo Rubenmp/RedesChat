@@ -30,7 +30,7 @@ public class Server {
     public void execute(){
         try {
             serverSocketW  = new ServerSocket(Config.getWriterPort()); 			// Abrimos el socket en modo pasivo
-            serverSocketP = new ServerSocket(Config.getPrinterPort()); 			// Abrimos el socket en modo pasivo
+            //serverSocketP = new ServerSocket(Config.getPrinterPort()); 			// Abrimos el socket en modo pasivo
 
             do {
 
@@ -38,17 +38,20 @@ public class Server {
                 inputStream    = new BufferedReader (new InputStreamReader(socketW.getInputStream()));
                 text = inputStream.readLine();
                 inputStream.close();
+                System.out.println(text); System.out.flush();
 
 
-                socketP = serverSocketP.accept();   // Aceptamos una nueva conexión
+                socketP = new Socket (host, Config.getPrinterPort());
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
 
+                /*
                 socketP = serverSocketP.accept();   // Aceptamos una nueva conexión
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
+                */
 
             } while (true);
 
