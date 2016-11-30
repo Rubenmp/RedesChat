@@ -50,6 +50,8 @@ public class Server {
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
+
+
             } while (true);
 
         } catch (IOException e) {
