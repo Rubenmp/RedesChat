@@ -38,12 +38,15 @@ public class Writer {
 
         while (input.hasNext()){
             writingBuffer = input.nextLine();
-            writingBuffer = username + ":\t" + writingBuffer;
+			
+			if (writingBuffer.length() != 0){
+		        writingBuffer = username + ":\t" + writingBuffer;
 
-            if (writingBuffer.toLowerCase() != "exit"){
-                message = new Message(idConversation, idUser, writingBuffer);
-                write(message);
-            }
+		        if (writingBuffer.toLowerCase() != "exit"){
+		            message = new Message(idConversation, idUser, writingBuffer);
+		            write(message);
+		        }
+			}
         }
 
         input.close();
