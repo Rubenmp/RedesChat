@@ -29,8 +29,7 @@
 \subsection{Conversaciones}
 \begin{frame}{Conversaciones}
 	\begin{block}{Mensajes}
-	Los mensajes tienen un identificador del grupo al que pertenecen, del usuario que los envía y un iden-
-	tificador del mensaje. Estos tres parámetros formarán la clave primaria, también se incluirá la fecha del envío del mensaje.
+	Los mensajes tienen un identificador del grupo al que pertenecen, del usuario que los envía y un identificador del mensaje. Estos tres parámetros formarán la clave primaria, también se incluirá la fecha del envío del mensaje y el nombre del usuario que lo envía.
 	\end{block}
 	
 	\begin{exampleblock}{ }
@@ -57,7 +56,22 @@
 
 % -----------------------------------
 
+\subsection{Mejoras}
+\subsection{Varias personas en un chat}
+\begin{frame}{Mejoras}
+	\begin{block}{Varios chats del mismo usuario}
+		Para tener varios chats podríamos usar:
+		
+		\begin{itemize}
+			\item Varios Printer por usuario
+			\item Un único Printer que guarda las conversaciones en archivos
+		\end{itemize}
+	\end{block}
+	
+	\begin{block}{Grupos}   
+		En este caso el cliente actuaría también como servidor que recibe los mensajes del servidor principal y los muestra por pantalla.
+	\end{block}
+\end{frame}
 
 
-
-
+% -----------------------------------
