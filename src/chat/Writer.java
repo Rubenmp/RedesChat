@@ -36,7 +36,7 @@ public class Writer {
         System.out.print("Introduce your username: ");
         String username = input.next();
 
-        System.out.print("Choose de colour of your username: ");
+        System.out.print("Choose the colour of your username: ");
         System.out.print("\033[32m(G)reen \033[31m(R)ed \033[33m(Y)ellow \033[34m(B)lue \033[35m(M)agenta\033[0m ");
 
         String colour = input.next();
