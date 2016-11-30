@@ -46,10 +46,10 @@ public class Server {
                 outputStream.println(text);
                 outputStream.close();
 
-                // socketP = serverSocketP.accept();
-                // outputStream   = new PrintWriter(socketP.getOutputStream(), true);
-                // outputStream.println(text);
-                // outputStream.close();
+                socketP = serverSocketP.accept();
+                outputStream   = new PrintWriter(socketP.getOutputStream(), true);
+                outputStream.println(text);
+                outputStream.close();
 
 
             } while (true);
