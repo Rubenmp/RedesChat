@@ -30,17 +30,19 @@ public class Printer {
         BufferedReader inputStream;
 
         try {
-            ServerSocket serverSocketP = new ServerSocket(Config.getPrinterPort()); 			// Abrimos el socket en modo pasivo
-
             do{
-                Socket socketP = serverSocketP.accept();   // Aceptamos una nueva conexión               
-                
-                inputStream   = new BufferedReader(new InputStreamReader(socketP.getInputStream()));
+                socketService = new Socket (host, port); // Creamos un socket que se conecte a "host" y "port":
+                inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
                 readingBuffer = inputStream.readLine();
-                inputStream.close();
-                socketP.close();
                 printMessage(readingBuffer);
+                inputStream.close();
+                socketService.close();
 
+                try {
+                    Thread.sleep(3000);                 //1000 milliseconds is one second.
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             } while (readingBuffer != null);
 
         }catch (UnknownHostException e){

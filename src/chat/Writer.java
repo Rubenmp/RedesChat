@@ -14,12 +14,12 @@ public class Writer {
     PrintWriter outputStream;
 
 
-        
+        /*
     public Writer(int p_idConversation, int p_idUser){
         idConversation = p_idConversation;
         idUser = p_idUser;
     }
-    
+    */
 
 
     public Writer(int p_idUser){
@@ -38,13 +38,11 @@ public class Writer {
 
         while (input.hasNext()){
             writingBuffer = input.nextLine();
-            if (writingBuffer.length() != 0){
-                writingBuffer = username + ":\t" + writingBuffer;
+            writingBuffer = username + ":\t" + writingBuffer;
 
-                if (writingBuffer.toLowerCase() != "exit"){
-                    message = new Message(idConversation, idUser, writingBuffer);
-                    write(message);
-                }
+            if (writingBuffer.toLowerCase() != "exit"){
+                message = new Message(idConversation, idUser, writingBuffer);
+                write(message);
             }
         }
 
