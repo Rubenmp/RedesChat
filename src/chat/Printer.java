@@ -32,7 +32,7 @@ public class Printer {
 
         try {
             do{
-                socketService = new Socket (host, port); // Creamos un socket que se conecte a "host" y "port":
+                socketService = new Socket (host, 8991); // Creamos un socket que se conecte a "host" y "port":
                 inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
                 readingBuffer = inputStream.readLine();
                 printMessage(readingBuffer);
