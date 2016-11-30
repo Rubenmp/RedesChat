@@ -38,6 +38,11 @@ public class Printer {
                 inputStream.close();
                 socketService.close();
 
+                try {
+                    Thread.sleep(3000);                 //1000 milliseconds is one second.
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             } while (readingBuffer != null);
 
         }catch (UnknownHostException e){
