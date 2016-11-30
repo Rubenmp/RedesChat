@@ -41,10 +41,6 @@ public class Server {
                 text = inputStream.readLine();
                 inputStream.close();
 
-                //System.out.print("Server receives: ");
-                //System.out.println(text); System.out.flush();
-
-
                 socketP = serverSocketP2.accept();   // Aceptamos una nueva conexión
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
@@ -54,7 +50,6 @@ public class Server {
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
-
             } while (true);
 
         } catch (IOException e) {
