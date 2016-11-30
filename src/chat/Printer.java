@@ -50,25 +50,61 @@ public class Printer {
     public void printMessage(String readingBuffer){
         Message m = Message.toMessage(readingBuffer);
         String[] text_parts;
-        String text_with_format = "";
-
+        String bold_text = "";
+        String underlined_text = "";
+        String blink_text = "";
+        String final_text = "";
         // BOLD TEXT
 
         text_parts = m.getText().split(Pattern.quote("*"));
         boolean bold = false;
         for(String part: text_parts){
             if (bold){
-                text_with_format += "\033[1m";
-                text_with_format += part;
+                bold_text += "\033[1m";
+                bold_text += part;
             }
             if (!bold){
-                text_with_format += "\033[0m";
-                text_with_format += part;
+                bold_text += "\033[0m";
+                bold_text += part;
             }
             bold = !bold;
         }
 
-        System.out.println("\033[2m" + m.getDateString() + " from " + text_with_format);
+        // UNDERLINED TEXT
+
+        text_parts = bold_text.split(Pattern.quote("_"));
+        boolean underlined = false;
+        for(String part: text_parts){
+            if (underlined){
+                underlined_text += "\033[4m";
+                underlined_text += part;
+            }
+            if (!underlined){
+                underlined_text += "\033[0m";
+                underlined_text += part;
+            }
+            underlined = !underlined;
+        }
+
+        // BLINK TEXT
+
+        text_parts = underlined_text.split(Pattern.quote("\\"));
+        boolean blink = false;
+        for(String part: text_parts){
+            if (blink){
+                blink_text += "\033[5m";
+                blink_text += part;
+            }
+            if (!blink){
+                blink_text += "\033[0m";
+                blink_text += part;
+            }
+            blink = !blink;
+        }
+
+        final_text = blink_text + "\033[0m";
+
+        System.out.println("\033[2m" + m.getDateString() + " from " + final_text);
         System.out.flush();
     }
 
