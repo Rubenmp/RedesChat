@@ -1,6 +1,6 @@
 # RedesChat
 
-This is a user-to-user chat app we developed for a class project.
+This is a user-to-user chat app we developed for a class project. Documentation is still incomplete so please forgive us if we've missed some important things. Feel free to contact us ([Rubén](https://github.com/Rubenmp) or [Fran](https://github.com/fjmpiq)) to make any suggestions, contribute or if you want further information. 
 
 ## How does it work?
 
@@ -19,6 +19,7 @@ You can observe that some of the classes aren't actually being used. That's beca
 - Group chats
 - User authentication
 - Multiple chats at a time
+- Improved interface
 
 ---
 
