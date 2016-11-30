@@ -40,18 +40,17 @@ public class Server {
                 inputStream    = new BufferedReader (new InputStreamReader(socketW.getInputStream()));
                 text = inputStream.readLine();
                 inputStream.close();
-                System.out.println(text); System.out.flush();
-
-
-                socketP = serverSocketP.accept();
-                outputStream   = new PrintWriter(socketP.getOutputStream(), true);
-                outputStream.println(text);
-                outputStream.close();
 
                 socketP = serverSocketP2.accept();   // Aceptamos una nueva conexión
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
+
+                // socketP = serverSocketP.accept();
+                // outputStream   = new PrintWriter(socketP.getOutputStream(), true);
+                // outputStream.println(text);
+                // outputStream.close();
+
 
             } while (true);
 

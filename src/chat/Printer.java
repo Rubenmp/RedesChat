@@ -2,7 +2,8 @@ package chat;
 
 import java.io.*;
 import java.net.*;
-
+import java.lang.Object;
+import java.util.regex.*;
 
 // This class shows different messages of the conversation, and receive
 // this information from a server
@@ -37,12 +38,6 @@ public class Printer {
                 printMessage(readingBuffer);
                 inputStream.close();
                 socketService.close();
-
-                try {
-                    Thread.sleep(3000);                 //1000 milliseconds is one second.
-                } catch(InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
             } while (readingBuffer != null);
 
         }catch (UnknownHostException e){
@@ -54,7 +49,26 @@ public class Printer {
 
     public void printMessage(String readingBuffer){
         Message m = Message.toMessage(readingBuffer);
-        System.out.println(m.getDateString() + " from " + m.getText());
+        String[] text_parts;
+        String text_with_format = "";
+
+        // BOLD TEXT
+
+        text_parts = m.getText().split(Pattern.quote("*"));
+        boolean bold = false;
+        for(String part: text_parts){
+            if (bold){
+                text_with_format += "\033[1m";
+                text_with_format += part;
+            }
+            if (!bold){
+                text_with_format += "\033[0m";
+                text_with_format += part;
+            }
+            bold = !bold;
+        }
+
+        System.out.println("\033[2m" + m.getDateString() + " from " + text_with_format);
         System.out.flush();
     }
 
