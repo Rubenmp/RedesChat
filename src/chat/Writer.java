@@ -56,14 +56,14 @@ public class Writer {
         while (input.hasNext()){
             writingBuffer = input.nextLine();
 
-			if (writingBuffer.length() != 0){
-		        writingBuffer = username + ":\033[0m" + "\t" + writingBuffer;
+            if (writingBuffer.length() != 0){
+                writingBuffer = username + ":\033[0m" + "\t" + writingBuffer;
 
-		        if (writingBuffer.toLowerCase() != "exit"){
-		            message = new Message(idConversation, idUser, writingBuffer);
-		            write(message);
-		        }
-			}
+                if (writingBuffer.toLowerCase() != "exit"){
+                    message = new Message(idConversation, idUser, writingBuffer);
+                    write(message);
+                }
+            }
         }
 
         input.close();
@@ -75,7 +75,11 @@ public class Writer {
             socketService = new Socket (host, Config.getWriterPort());
             outputStream = new PrintWriter(socketService.getOutputStream(), true);
 
-            outputStream.println(writingBuffer); // Enviamos el array
+            try {
+                outputStream.println(Config.encrypt(writingBuffer)); // Enviamos el array
+            } catch (Exception ex) {
+                Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
+            }
             outputStream.flush();
 
             socketService.close();
