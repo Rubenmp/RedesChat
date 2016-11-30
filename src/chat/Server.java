@@ -40,6 +40,9 @@ public class Server {
                 inputStream    = new BufferedReader (new InputStreamReader(socketW.getInputStream()));
                 text = inputStream.readLine();
                 inputStream.close();
+                
+                System.out.print("Server receives: ");
+                System.out.println(text); System.out.flush();
 
                 socketP = serverSocketP2.accept();   // Aceptamos una nueva conexión
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
@@ -50,7 +53,10 @@ public class Server {
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 
             } while (true);
 

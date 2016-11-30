@@ -3,6 +3,8 @@ package chat;
 import java.io.*;
 import java.net.*;
 import java.lang.Object;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.*;
 
 // This class shows different messages of the conversation, and receive
@@ -32,7 +34,7 @@ public class Printer {
 
         try {
             do{
-                socketService = new Socket (host, 8991); // Creamos un socket que se conecte a "host" y "port":
+                socketService = new Socket (host, 8990); // Creamos un socket que se conecte a "host" y "port":
                 inputStream   = new BufferedReader(new InputStreamReader(socketService.getInputStream()));
                 readingBuffer = inputStream.readLine();
                 printMessage(readingBuffer);
@@ -47,7 +49,14 @@ public class Printer {
         }
     }
 
-    public void printMessage(String readingBuffer){
+    public void printMessage(String parameter){
+        String readingBuffer = null;
+        try {
+            readingBuffer = Config.decrypt(parameter);
+        } catch (Exception ex) {
+            Logger.getLogger(Printer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         Message m = Message.toMessage(readingBuffer);
         String[] text_parts;
         String bold_text = "";
