@@ -13,18 +13,29 @@ public class Printer {
     private String host       = Config.getHost();	// Nombre del host donde se ejecuta el servidor:
     protected static int port = Config.getPrinterPort(); // Puerto en el que espera el servidor
 
-/*
-        public Printer(int p_idConversation, int p_idUser){
+    /**
+    * Constructor of printer
+    * @param int p_idConversation
+    * @param int p_idUser
+    */
+    public Printer(int p_idConversation, int p_idUser){
         idConversation = p_idConversation;
         idUser = p_idUser;
     }
-    */
 
+    /**
+    * Constructor of printer with idUser
+    * @param int p_idUser
+    */
     public Printer(int p_idUser){
         idConversation = 111111;
         idUser = p_idUser;
     }
 
+    /**
+    * It execute a continious function which receives messages
+    * @return void
+    */
     public void execute(){
         String readingBuffer;
         Socket socketService;
@@ -47,6 +58,11 @@ public class Printer {
         }
     }
 
+    /**
+    * It prints a specific message providing format
+    * @param String readingBuffer
+    * @return void
+    */
     public void printMessage(String readingBuffer){
         Message m = Message.toMessage(readingBuffer);
         String[] text_parts;

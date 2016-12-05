@@ -14,20 +14,29 @@ public class Writer {
     PrintWriter outputStream;
 
 
-        /*
+    /**
+    * Writer constructor
+    * @param int p_idConversation
+    * @param int p_idUser
+    */
     public Writer(int p_idConversation, int p_idUser){
         idConversation = p_idConversation;
         idUser = p_idUser;
     }
+
+    /**
+    * Writer constructor
+    * @param int p_idUser
     */
-
-
     public Writer(int p_idUser){
         idConversation = 2222;
         idUser = p_idUser;
     }
 
-
+    /**
+    * It execute writer process
+    * @return void
+    */
     public void execute(){
         String writingBuffer;
         Message message;
@@ -43,9 +52,8 @@ public class Writer {
 
         if (colour.equals("G"))
           username = "\033[0m\033[32m" + username;
-        else if (colour.equals("R")){
+        else if (colour.equals("R"))
           username = "\033[0m\033[31m" + username;
-        }
         else if (colour.equals("Y"))
           username = "\033[0m\033[33m" + username;
         else if (colour.equals("B"))
@@ -54,21 +62,26 @@ public class Writer {
           username = "\033[0m\033[35m" + username;
 
         while (input.hasNext()){
-            writingBuffer = input.nextLine();
+          writingBuffer = input.nextLine();
 
-			if (writingBuffer.length() != 0){
-		        writingBuffer = username + ":\033[0m" + "\t" + writingBuffer;
+          if (writingBuffer.length() != 0){
+            writingBuffer = username + ":\033[0m" + "\t" + writingBuffer;
 
-		        if (writingBuffer.toLowerCase() != "exit"){
-		            message = new Message(idConversation, idUser, writingBuffer);
-		            write(message);
-		        }
-			}
+            if (writingBuffer.toLowerCase() != "exit"){
+                message = new Message(idConversation, idUser, writingBuffer);
+                write(message);
+            }
+          }
         }
 
         input.close();
     }
 
+    /**
+    * It writes a specific message
+    * @param Message message
+    * @return void
+    */
     public void write(Message message){
         String writingBuffer = message.toString();
          try {
@@ -84,7 +97,6 @@ public class Writer {
         } catch (IOException ex) {
             Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 }

@@ -27,9 +27,14 @@ public class Message{
 
 
     protected Message(){}
-
+      /**
+      * Constructor of message
+      * @param int p_idConversation
+      * @param int p_idUser
+      * @param String p_text
+      */
     public Message(int p_idConversation, int p_idUser, String p_text) {
-    	idConversation  = p_idConversation;
+    	  idConversation  = p_idConversation;
         idUser          = p_idUser;
         idMessage       = idStaticMessage;
         date            = new Date();
@@ -37,6 +42,11 @@ public class Message{
         text            = p_text;
     }
 
+    /**
+    * It creates a new message using Scanner
+    * @param Scanner scan
+    * @return void
+    */
     protected void importMessage(Scanner scan){
         if (scan.hasNextLine()){
             idConversation = scan.nextInt(); // "not necesary"
@@ -58,6 +68,12 @@ public class Message{
         }
     }
 
+    /**
+    * It converts string to a message
+    * @param String string
+    * @return Mesasge
+    * @see static function
+    */
     protected static Message toMessage(String string){
         File fichAux = new File(".aux");
         Message message = null;
@@ -87,7 +103,11 @@ public class Message{
         return message;
     }
 
-
+    /**
+    * It export message to a PrintWriter
+    * @param PrintWriter writer
+    * @return void
+    */
     protected void exportMessage(PrintWriter writer){
         writer.print(Integer.toString(idConversation) + " ");
         writer.print(Integer.toString(idUser) + " ");
@@ -96,6 +116,10 @@ public class Message{
         writer.println(text);
     }
 
+    /**
+    * It converts message to string
+    * @return String
+    */
     @Override
     public String toString(){
         String message = new String();
@@ -108,31 +132,59 @@ public class Message{
         return message;
     }
 
-
+    /**
+    * It provides identifier of conversation
+    * @return int idConversation
+    */
     public int getIdConversation(){
         return idConversation;
     }
 
+    /**
+    * It provides identifier of user
+    * @return int idUser
+    */
     public int getIdUser(){
       return idUser;
     }
 
+    /**
+    * It provides local identifier of message.
+    * Total identifier is composed of idConversation,idUser and idMessage
+    * @return int idMessage
+    */
     public int getIdMessage(){
       return idMessage;
     }
 
+    /**
+    * It provides creation date of message
+    * @return Date date
+    */
     public Date getDate(){
         return date;
     }
 
+    /**
+    * It provides creation date of message in the message format
+    * @return String
+    */
     public String getDateString(){
         return dateFormat.format(date);
     }
 
+    /**
+    * It provides text of message
+    * @return String text
+    */
     public String getText(){
       return text;
     }
 
+    /**
+    * It provides format of message
+    * @return String
+    */
     public String getFormat(){
         return "<idConversation> <idUser> <idMessage> <date:dateFormat> - <Text>";
     }

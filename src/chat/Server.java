@@ -26,22 +26,23 @@ public class Server {
     ServerProcessor processor;
     String text;
 
-    // Pass users to processor
+    /**
+    * It execute server process
+    * @return void
+    */
     public void execute(){
         try {
-            serverSocketW  = new ServerSocket(Config.getWriterPort()); 			// Abrimos el socket en modo pasivo
-
-            serverSocketP = new ServerSocket(8990); 			// Abrimos el socket en modo pasivo
-            serverSocketP2 = new ServerSocket(8991); 			// Abrimos el socket en modo pasivo
+            serverSocketW  = new ServerSocket(Config.getWriterPort());
+            serverSocketP = new ServerSocket(8990);
+            serverSocketP2 = new ServerSocket(8991);
 
             do {
-
-                socketW  = serverSocketW.accept();   // Aceptamos una nueva conexión
+                socketW  = serverSocketW.accept();
                 inputStream    = new BufferedReader (new InputStreamReader(socketW.getInputStream()));
                 text = inputStream.readLine();
                 inputStream.close();
 
-                socketP = serverSocketP2.accept();   // Aceptamos una nueva conexión
+                socketP = serverSocketP2.accept();   
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
@@ -50,7 +51,6 @@ public class Server {
                 outputStream   = new PrintWriter(socketP.getOutputStream(), true);
                 outputStream.println(text);
                 outputStream.close();
-
 
             } while (true);
 
@@ -61,35 +61,10 @@ public class Server {
 
 
 
-    // Seng message to all chat's interfaces of users
+    // Send message to all chat's interfaces of users
+    // In ampliation
     public void sendMessage(String message){
-        //int nConversation = message.getIdConversation();
-        //String file = Config.getFileConversation(nConversation);
-        /*
-        try {
-            PrintWriter printer = new PrintWriter(file, Config.getEncoding());
-            message.exportMessage(printer);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        ///////////////////////////////////77//////////
-        Socket socketService;
-
-        try {
-
-            outputStream.println(message); // Enviamos el array
-            outputStream.flush();
-    System.out.println("bbbb");System.out.flush();
-            outputStream.close();
-
-        }catch (UnknownHostException e){
-            System.err.println("Error: Host not recognized.");
-        }catch (IOException e){
-            System.err.println("Error: I/O socket.");
-        }*/
+      // methods
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 
 
-
+// Its not used
 public class ServerProcessor extends Thread{
     private Socket socketService, socketService2;
     private BufferedReader inputStream;
@@ -38,7 +38,7 @@ public class ServerProcessor extends Thread{
             // Obtiene los flujos de escritura/lectura
             inputStream.close();
             outputStream.close();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(ServerProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }

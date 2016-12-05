@@ -1,11 +1,17 @@
-//package chat;
+/**
+* This is a user-to-user chat app we developed for a class project.
+*
+*
+* @author  Rubén Morales Pérez & Francisco Javier Morales Piqueras
+* @version 1.0
+* @since   30/11/2016
+*/
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.text.*;
 import chat.*;
-import GUI.*;
 
 
 public class main{
@@ -25,7 +31,7 @@ public class main{
 
         chat.Writer writer = new chat.Writer(0);
         chat.Printer printer = new chat.Printer(0);
-        
+
         if (number == 1)
             writer.execute();
         else if (number == 2)

@@ -25,20 +25,18 @@ public class Config {
     // Files
     private static String initialConfig = new String();
 
-    // Limits
-    private static final int maxGroupSize = 100;
-
     private static int idStaticConversation;
     private static int idStaticUser;
 
     private static final int writerPort  = 8989;
     private static final int printerPort = 8990;
     private static String host;
-    
-    // Encryption
-    private static final String ALGORITHM = "AES";
-    private static final String KEY = "1Hbfh667adfDEJ78";    
 
+    /**
+    * This function initialized configuration of chat
+    * @param int value 1 if folders previously created, 0 other case
+    *
+    */
     public Config(int value){
         conversations += folder + "conversations/";
         users    += folder + "users/";
@@ -59,6 +57,10 @@ public class Config {
         loadUsers();
     }
 
+    /**
+    * This function creates folders for the administration of chat
+    * @return void
+    */
     private static void createFolders(){
         File dir = new File(folder);
         dir.mkdir();
@@ -70,6 +72,10 @@ public class Config {
         dir.mkdir();
     }
 
+    /**
+    * This function provides static variables to program
+    * @return void
+    */
     private static void initConfig(){
         Scanner scan;
         try {
@@ -81,6 +87,10 @@ public class Config {
         }
     }
 
+    /**
+    * This function save the configuration of chat (static variables, etc)
+    * @return void
+    */
     private static void saveConfig(){
         try {
             PrintWriter writer = new PrintWriter(initialConfig, Config.getEncoding());
@@ -93,6 +103,10 @@ public class Config {
         }
     }
 
+    /**
+    * This function save users in server
+    * @return void
+    */
     public static void loadUsers(){
         User user;
 
@@ -102,38 +116,70 @@ public class Config {
         }
     }
 
+    /**
+    * It return main folder
+    * @return String main folder
+    */
     public static String getFolder(){
         return folder;
     }
 
+    /**
+    * This function returns conversations folder
+    * @return String convesations
+    */
     public static String getConversations(){
         return conversations;
     }
 
+    /**
+    * This function returns users folder
+    * @return void
+    */
     public static String getUsers(){
         return users;
     }
 
+    /**
+    * This funcion return settings folder
+    * @return String settings folder
+    */
     public static String getSettings(){
         return settings;
     }
 
+    /**
+    * This function return encoding used in chat
+    * @return String encoding
+    */
     public static String getEncoding(){
         return encoding;
     }
 
 
-
+    /**
+    * It provides the amount of registered conversations
+    * @return int idStaticConversation
+    */
     public static int getIdStaticConversation(){
         return idStaticConversation;
     }
 
+    /**
+    * It creates a new conversation in chat
+    * @return int identifier of conversation
+    */
     public static int newConversation(){
         int ret = idStaticConversation;
         ++idStaticConversation;
         return ret;
     }
 
+    /**
+    * It provides file of conversation in the parameter
+    * @param String index
+    * @return String file
+    */
     public static String getFileConversation(int index){
         String file = new String();
         if (index >= 0 && index < idStaticConversation)
@@ -142,16 +188,29 @@ public class Config {
         return file;
     }
 
+    /**
+    * It provides the amount of registered users in chat
+    * @return int
+    */
     public static int getIdStaticUser(){
         return idStaticUser;
     }
 
+    /**
+    * It creates a new user
+    * @return int identifier of user
+    */
     public static int newUser(){
         int ret = idStaticUser;
         ++idStaticUser;
         return ret;
     }
 
+    /**
+    * It provides file of user passing identifier
+    * @param int index in 0...idStaticUser
+    * @return String userFile
+    */
     public static String getFileUser(int index){
         String file = new String();
         if (index >= 0 && index < idStaticUser)
@@ -161,57 +220,55 @@ public class Config {
     }
 
 
-
+    /**
+    * It provides writer port
+    * @return int writerPort
+    */
     public static int getWriterPort(){
         return writerPort;
     }
 
+    /**
+    * It provides printer port
+    * @return int printerPort
+    */
     public static int getPrinterPort(){
         return printerPort;
     }
 
+    /**
+    * It provides host of the server
+    * @return String host
+    */
     public static String getHost(){
         return host;
     }
 
+    /**
+    * It modifies host of server
+    * @param String p_host
+    * @return void
+    */
     public static void setHost(String p_host){
         host = p_host;
     }
 
+    /**
+    * It says if an index of user is valid
+    * @param in index
+    * @return boolean
+    */
     public static boolean validUser(int index){
         return (index >= 0 && index < idStaticUser);
     }
 
+    /**
+    * It says if an index of conversation is valid
+    * @param int index
+    * @return boolean 
+    */
     public static boolean validConversation(int index){
         return (index >= 0 && index < idStaticConversation);
     }
-    
-    
-   
-    
-    public static String encrypt(String value) throws Exception{
-        Key key = generateKey();
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, key);
-        byte [] encryptedByteValue = cipher.doFinal(value.getBytes("utf-8"));
-        String encryptedValue64 = new BASE64Encoder().encode(encryptedByteValue);
-        return encryptedValue64;
-               
-    }
-    
-    public static String decrypt(String value) throws Exception{
-        Key key = generateKey();
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, key);
-        byte [] decryptedValue64 = new BASE64Decoder().decodeBuffer(value);
-        byte [] decryptedByteValue = cipher.doFinal(decryptedValue64);
-        String decryptedValue = new String(decryptedByteValue,"utf-8");
-        return decryptedValue;
-                
-    }
-    
-    private static Key generateKey() throws Exception {
-        Key key = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
-        return key;
-    }
+
 }
